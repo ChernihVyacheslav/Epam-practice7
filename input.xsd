@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  XML schema -->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://nure.ua/chernykh/practice7"
+            xmlns:tns="http://nure.ua/chernykh/practice7">
+
+    <xsd:element name="Medicines">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="Medicine"
+                             type="tns:Medicine" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="Medicine">
+        <xsd:sequence>
+            <xsd:element name="MedicineName" type="xsd:string"/>
+            <xsd:element name="MedicineGroup" type="xsd:string"/>
+            <xsd:element name="MedicinePharm" type="xsd:string"/>
+            <xsd:sequence>
+                <xsd:element name="MedicineAnalog" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+            <xsd:sequence>
+                <xsd:element name="MedicineVersion" type="tns:MedicineVersion" maxOccurs="unbounded"/>
+            </xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="MedicineVersion">
+        <xsd:sequence>
+            <xsd:element name="MedicineVersionName" type="xsd:string"/>
+            <xsd:element name="PharmVersion" type="tns:PharmVersion" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PharmVersion">
+        <xsd:sequence>
+            <xsd:element name="PharmName" type="xsd:string"/>
+            <xsd:element name="PharmCertificate" type="tns:PharmCertificate"/>
+            <xsd:element name="MedicinePackage" type="tns:MedicinePackage"/>
+            <xsd:element name="MedicineDosage" type="tns:MedicineDosage"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="PharmCertificate">
+        <xsd:sequence>
+            <xsd:element name="CertificateNumber" type="xsd:positiveInteger"/>
+            <xsd:element name="CertificateStartDate" type="xsd:date"/>
+            <xsd:element name="CertificateEndDate" type="xsd:date"/>
+            <xsd:element name="CertificateOrganisation" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="MedicinePackage">
+        <xsd:sequence>
+            <xsd:element name="PackageType" type="xsd:string"/>
+            <xsd:element name="MedicineAmount" type="xsd:positiveInteger"/>
+            <xsd:element name="MedicinePrice" type="xsd:decimal"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="MedicineDosage">
+        <xsd:sequence>
+            <xsd:element name="DoseAmount" type="xsd:positiveInteger"/>
+            <xsd:element name="DosagePeriodicity">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:positiveInteger">
+                            <xsd:attribute name="periodicityType" type="xsd:string"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>
